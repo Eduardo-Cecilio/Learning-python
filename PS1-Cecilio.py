@@ -67,49 +67,124 @@ def countofDead(list_arg):
             countDead = countDead + 1
     return countDead
 
+def find_ArgMax(arg_alive, arg_dead):
+    if arg_alive > arg_dead:
+        argMax = arg_alive
+    else: 
+        argMax = arg_dead
+    return argMax
 
+def calc_Majority(arg_sur):
+    return find_ArgMax(countofAlive(arg_sur), countofDead(arg_sur))
+
+def print_info(list_arg):
+    surv = countofAlive(list_arg)
+    dead = countofDead(list_arg)
+    maxN = find_ArgMax(surv, dead)
+    print "\t\tNumber that Survived:\t %r" % surv
+    print "\t\tNumber that Died:\t %d" % dead
+    print "\t\tmajority1: %d" % maxN
+
+def calc_accuracy(maj0_arg, maj1_arg, arg_list):
+    return (maj0_arg + maj1_arg)/ float(len(arg_list))
+
+def calc_error(accuracy_arg):
+    return 1 - accuracy_arg
+
+def clear_sur(sur1_arg, sur0_arg):
+    del sur1_arg[:]
+    del sur0_arg[:]
+
+#reads the data
 readData()
-sort_Dead_Survived(firstClass)
 
+#calculatoins for First Class (not cleaned up code)
+sort_Dead_Survived(firstClass)
 countSurvived = countofAlive(sur1)
 countDead = countofDead(sur1)
-
-
-
-if countSurvived > countDead:
-    argMax = countSurvived
-else: 
-    argMax = countDead
-
+argMax = find_ArgMax(countSurvived, countDead)
 majority1 = argMax
-
 print "First Class\t %d" % len(firstClass)
 print "\tPassangers that were First Class \t %d" % len(sur1)
-print "\t\tNumber that Survived:\t %d" % countSurvived
-print "\t\tNumber that Died:\t %d" % countDead
-print "\t\tmajority1: %d" % argMax 
-
-
+print_info(sur1)
 countSurvived = countofAlive(sur0)
 countDead = countofDead(sur0)
-
-
-if countSurvived > countDead:
-    argMax = countSurvived
-else: 
-    argMax = countDead
-
+argMax = find_ArgMax(countSurvived, countDead)
 majority0 = argMax
-accuracy = (majority0 + majority1)/ float(len(firstClass))
-err = 1 - accuracy
-
+accuracy = calc_accuracy(majority0, majority1, firstClass)
+err = calc_error(accuracy)
 print "\tPassangers were NOT First Class\t %d" % len(sur0)
-print "\t\tNumber that Survived:\t %d" % countSurvived
-print "\t\tNumber that Died:\t%d" % countDead
-print "\t\tmajority0: %d" % argMax
+print_info(sur0)
 print "Accuracy: %r" % accuracy 
 print "Error: %r" % err 
 
+#clear sur1 and sur0 due to appending in def 
+clear_sur(sur1, sur0)
+sur1 = []
+sur0= []
 
+print "----------------------------------------------------"
 
+#Calculate for gender
+sort_Dead_Survived(gender)
+
+majority1 = calc_Majority(sur1)
+print "Gender\t %d" % len(gender)
+print "\tPassangers that were Male \t %d" % len(sur1)
+print_info(sur1)
+
+majority0 = calc_Majority(sur0)
+print "\tPassangers were Female\t %d" % len(sur0)
+print_info(sur0)
+
+accuracy = calc_accuracy(majority0, majority1, gender)
+err = calc_error(accuracy)
+print "Accuracy: %r" % accuracy 
+print "Error: %r" % err 
+
+#clear sur1 and sur0 due to appending in def 
+clear_sur(sur1, sur0)
+sur1 = []
+sur0= []
+
+print "----------------------------------------------------"
+#Calculate for Age
+sort_Dead_Survived(age)
+
+majority1 = calc_Majority(sur1)
+print "Age\t %d" % len(age)
+print "\tPassangers that were 25 or older \t %d" % len(sur1)
+print_info(sur1)
+
+majority0 = calc_Majority(sur0)
+print "\tPassangers were younger than 25\t %d" % len(sur0)
+print_info(sur0)
+
+accuracy = calc_accuracy(majority0, majority1, age)
+err = calc_error(accuracy)
+print "Accuracy: %r" % accuracy 
+print "Error: %r" % err 
+
+#clear sur1 and sur0 due to appending in def 
+clear_sur(sur1, sur0)
+sur1 = []
+sur0= []
+
+print "----------------------------------------------------"
+#Calculate for Age
+sort_Dead_Survived(age)
+
+majority1 = calc_Majority(sur1)
+print "Age\t %d" % len(age)
+print "\tPassangers that were 25 or older \t %d" % len(sur1)
+print_info(sur1)
+
+majority0 = calc_Majority(sur0)
+print "\tPassangers were younger than 25\t %d" % len(sur0)
+print_info(sur0)
+
+accuracy = calc_accuracy(majority0, majority1, age)
+err = calc_error(accuracy)
+print "Accuracy: %r" % accuracy 
+print "Error: %r" % err 
 

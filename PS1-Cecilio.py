@@ -19,7 +19,7 @@ parent_or_children = []
 embarked = []
 # 0 if passenger did not survive, 1 if true
 survived = []  
-#used to make   
+#used to hold the data of the for 1s and 0s 
 sur1 = []
 sur0 = []
 
@@ -100,28 +100,25 @@ readData()
 
 #calculatoins for First Class (not cleaned up code)
 sort_Dead_Survived(firstClass)
-countSurvived = countofAlive(sur1)
-countDead = countofDead(sur1)
-argMax = find_ArgMax(countSurvived, countDead)
-majority1 = argMax
+
+majority1 = calc_Majority(sur1)
 print "First Class\t %d" % len(firstClass)
 print "\tPassangers that were First Class \t %d" % len(sur1)
 print_info(sur1)
-countSurvived = countofAlive(sur0)
-countDead = countofDead(sur0)
-argMax = find_ArgMax(countSurvived, countDead)
-majority0 = argMax
-accuracy = calc_accuracy(majority0, majority1, firstClass)
-err = calc_error(accuracy)
+
+majority0 = calc_Majority(sur0)
 print "\tPassangers were NOT First Class\t %d" % len(sur0)
 print_info(sur0)
+
+accuracy = calc_accuracy(majority0, majority1, firstClass)
+err = calc_error(accuracy)
 print "Accuracy: %r" % accuracy 
 print "Error: %r" % err 
 
 #clear sur1 and sur0 due to appending in def 
 clear_sur(sur1, sur0)
 sur1 = []
-sur0= []
+sur0 = []
 
 print "----------------------------------------------------"
 
@@ -145,7 +142,7 @@ print "Error: %r" % err
 #clear sur1 and sur0 due to appending in def 
 clear_sur(sur1, sur0)
 sur1 = []
-sur0= []
+sur0 = []
 
 print "----------------------------------------------------"
 #Calculate for Age
@@ -168,22 +165,68 @@ print "Error: %r" % err
 #clear sur1 and sur0 due to appending in def 
 clear_sur(sur1, sur0)
 sur1 = []
-sur0= []
+sur0 = []
 
 print "----------------------------------------------------"
-#Calculate for Age
-sort_Dead_Survived(age)
+#Calculate for siblings_or_spouse
+sort_Dead_Survived(siblings_or_spouse)
 
 majority1 = calc_Majority(sur1)
-print "Age\t %d" % len(age)
-print "\tPassangers that were 25 or older \t %d" % len(sur1)
+print "Siblings or spouse\t %d" % len(siblings_or_spouse)
+print "\tPassangers that had siblings or spouse present \t %d" % len(sur1)
 print_info(sur1)
 
 majority0 = calc_Majority(sur0)
-print "\tPassangers were younger than 25\t %d" % len(sur0)
+print "\tPassangers did not have siblings or spouse present \t %d" % len(sur0)
 print_info(sur0)
 
-accuracy = calc_accuracy(majority0, majority1, age)
+accuracy = calc_accuracy(majority0, majority1, siblings_or_spouse)
+err = calc_error(accuracy)
+print "Accuracy: %r" % accuracy 
+print "Error: %r" % err 
+
+#clear sur1 and sur0 due to appending in def 
+clear_sur(sur1, sur0)
+sur1 = []
+sur0 = []
+
+print "----------------------------------------------------"
+#Calculate for parent_or_children
+sort_Dead_Survived(parent_or_children)
+
+majority1 = calc_Majority(sur1)
+print "parent_or_children\t %d" % len(parent_or_children)
+print "\tPassangers that had parent_or_children\t %d" % len(sur1)
+print_info(sur1)
+
+majority0 = calc_Majority(sur0)
+print "\tPassangers did not have parent_or_children \t %d" % len(sur0)
+print_info(sur0)
+
+accuracy = calc_accuracy(majority0, majority1, parent_or_children)
+err = calc_error(accuracy)
+print "Accuracy: %r" % accuracy 
+print "Error: %r" % err 
+
+#clear sur1 and sur0 due to appending in def 
+clear_sur(sur1, sur0)
+sur1 = []
+sur0 = []
+
+print "----------------------------------------------------"
+#Calculate for parent_or_children
+sort_Dead_Survived(embarked)
+
+majority1 = calc_Majority(sur1)
+print "embarked\t %d" % len(embarked)
+print "\tPassangers that left from singapore\t %d" % len(sur1)
+print_info(sur1)
+
+majority0 = calc_Majority(sur0)
+print "\tPassangers did not leave from singpore \t %d" % len(sur0)
+print_info(sur0)
+
+accuracy = calc_accuracy(majority0, majority1, embarked)
 err = calc_error(accuracy)
 print "Accuracy: %r" % accuracy 
 print "Error: %r" % err 
